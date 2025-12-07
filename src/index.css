@@ -1,0 +1,26 @@
+﻿@import "tailwindcss";
+
+:root {
+  --bg: #0b1020;
+  --muted: #9ca3af;
+  --font-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --leading: 1.5;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: var(--leading);
+  background-color: var(--bg);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.hover\:pause:hover { animation-play-state: paused; }
