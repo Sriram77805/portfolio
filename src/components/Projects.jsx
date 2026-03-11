@@ -14,10 +14,6 @@ const Tag = ({ children }) => (
 );
 
 const SoftwareProjectCard = ({ project }) => {
-  const [pitch, setPitch] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
 
   return (
     <div className="p-6 bg-gray-800/70 rounded-2xl shadow-xl border-l-4 border-indigo-500 hover:bg-gray-700/80 transition duration-300">
@@ -29,25 +25,13 @@ const SoftwareProjectCard = ({ project }) => {
       </div>
       <p className="text-sm text-gray-500 mb-4">{project.date}</p>
 
-      {pitch ? (
-        <div className="mt-4 p-4 bg-indigo-900/40 rounded-lg border border-indigo-600/50">
-          <ul className="list-disc list-inside text-gray-200 space-y-1 ml-4">
-            {pitch.map((p, i) => <li key={i}>{p}</li>)}
-          </ul>
-        </div>
-      ) : (
-        <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
-      )}
+      <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
 
       <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-700/50">
         <div className="flex flex-wrap">
           {project.tools.map((tool, i) => <Tag key={i}>{tool}</Tag>)}
         </div>
-        <button onClick={generatePitch} disabled={isLoading} className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold text-sm rounded-lg shadow-md transition duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed">
-          {isLoading ? 'Loading…' : '✨ Generate Pitch'}
-        </button>
       </div>
-      {error && <p className="text-red-400 text-sm mt-2 text-right">{error}</p>}
     </div>
   );
 };
