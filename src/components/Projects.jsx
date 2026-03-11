@@ -18,15 +18,6 @@ const SoftwareProjectCard = ({ project }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const generatePitch = async () => {
-    setIsLoading(true);
-    setError(null);
-    setPitch(null);
-    // Placeholder: real Gemini integration requires server-side key
-    await new Promise(r => setTimeout(r, 700));
-    setPitch(["Delivered a scalable MERN architecture.", "Implemented JWT auth and realtime Socket.io.", "Optimized DB schemas for performance."]);
-    setIsLoading(false);
-  };
 
   return (
     <div className="p-6 bg-gray-800/70 rounded-2xl shadow-xl border-l-4 border-indigo-500 hover:bg-gray-700/80 transition duration-300">
@@ -40,7 +31,6 @@ const SoftwareProjectCard = ({ project }) => {
 
       {pitch ? (
         <div className="mt-4 p-4 bg-indigo-900/40 rounded-lg border border-indigo-600/50">
-          <h5 className="text-lg font-semibold text-indigo-300 mb-2">✨ Recruiter Pitch (AI Generated)</h5>
           <ul className="list-disc list-inside text-gray-200 space-y-1 ml-4">
             {pitch.map((p, i) => <li key={i}>{p}</li>)}
           </ul>
