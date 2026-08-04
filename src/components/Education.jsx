@@ -1,50 +1,61 @@
 import React from 'react';
-import { GraduationCap, BookOpen } from 'lucide-react';
-import { educationData } from '../data.js';
-
-const SectionTitle = ({ icon: Icon, title }) => (
-  <h2 className="text-3xl font-bold mb-8 flex items-center text-indigo-400">
-    <Icon className="w-8 h-8 mr-3 p-1 border-2 border-indigo-400 rounded-full" />
-    {title}
-  </h2>
-);
+import { educationData, certificationsData } from '../data.js';
+import { useReveal } from '../hooks.js';
+import { Award, ExternalLink } from 'lucide-react';
 
 export default function Education() {
+  const ref = useReveal();
   return (
-    <section id="education" className="py-20 bg-gray-800/50 border-t border-indigo-900/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={GraduationCap} title="Education & Certifications" />
+    <section id="education" className="py-28 relative" style={{ background: 'linear-gradient(var(--color-bg) 0%, var(--color-panel) 30%, var(--color-panel) 70%, var(--color-bg) 100%)' }}>
+      {/* ambient */}
+      <div className="orb" style={{ width: 400, height: 400, background: 'rgba(167,139,250,0.07)', bottom: -80, right: '5%', position: 'absolute' }} />
 
-        <div className="grid md:grid-cols-2 gap-10">
-          {educationData.map((edu, index) => (
-            <div key={index} className="relative p-6 bg-gray-800 rounded-xl shadow-xl border border-indigo-700/50">
-              <span className="absolute top-0 right-0 -mt-3 -mr-3 px-3 py-1 bg-indigo-600 text-white text-xs font-bold uppercase rounded-full shadow-lg">
-                {edu.period}
-              </span>
-              <div className="flex items-center space-x-4">
-                <GraduationCap className="w-8 h-8 text-indigo-400 flex-shrink-0" />
-                <div>
-                  <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
-                  <p className="text-indigo-300">{edu.institution}</p>
-                  {edu.details && <p className="text-sm text-gray-400 mt-1">{edu.details}</p>}
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="reveal" ref={ref}>
+          <p className="font-mono text-xs text-blue tracking-widest uppercase mb-3">Education & Certs</p>
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-ink mb-14">Academic journey</h2>
+
+          <div className="grid lg:grid-cols-2 gap-10">
+            {/* timeline */}
+            <div>
+              <p className="font-mono text-xs text-muted uppercase tracking-wider mb-6">Education</p>
+              <div className="relative">
+                <div className="absolute left-0 top-3 bottom-3 w-px bg-gradient-to-b from-blue via-violet to-transparent" />
+                <div className="space-y-10 pl-8">
+                  {educationData.map((edu, i) => (
+                    <div key={i} className="relative">
+                      <div className="absolute -left-8 top-1.5 w-3 h-3 rounded-full bg-blue border-2 border-bg" style={{ boxShadow: '0 0 10px rgba(96,165,250,0.6)' }} />
+                      <p className="font-mono text-xs text-blue mb-1">{edu.period}</p>
+                      <h4 className="font-display text-lg font-bold text-ink leading-snug mb-1">{edu.degree}</h4>
+                      <p className="text-sm text-muted">{edu.institution}</p>
+                      {edu.detail && <p className="font-mono text-xs text-faint mt-1">{edu.detail}</p>}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          ))}
 
-          <div className="p-6 bg-gray-800 rounded-xl shadow-xl border border-green-700/50">
-            <h4 className="text-xl font-bold text-green-400 mb-3 flex items-center">
-              <BookOpen className="w-6 h-6 mr-2" /> Certifications (AWS)
-            </h4>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex justify-between items-center bg-gray-700/50 p-3 rounded-lg border border-gray-700">
-                Getting Started With Amazon AWS
-              </li>
-              <li className="flex justify-between items-center bg-gray-700/50 p-3 rounded-lg border border-gray-700">
-                Getting Started with DevOps on AWS
-              </li>
-            </ul>
-            <p className="text-sm text-gray-500 mt-3">Links available in original resume.</p>
+            {/* certifications */}
+            <div>
+              <p className="font-mono text-xs text-muted uppercase tracking-wider mb-6">Certifications</p>
+              <div className="space-y-4">
+                {certificationsData.map((c, i) => (
+                  <div key={i} className="gcard p-5 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-amber/10 border border-amber/20 flex items-center justify-center flex-shrink-0">
+                      <Award className="w-5 h-5 text-amber" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-ink leading-snug">{c.name}</p>
+                      <p className="font-mono text-xs text-faint mt-0.5">AWS · {c.date}</p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-faint flex-shrink-0" />
+                  </div>
+                ))}
+                <div className="gcard p-5">
+                  <p className="font-mono text-xs text-muted">// Certificate links available in the resume</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

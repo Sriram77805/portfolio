@@ -1,83 +1,79 @@
 import React from 'react';
-import { Mail, Download, Github, Linkedin, Link } from 'lucide-react';
+import { Mail, Github, Linkedin, ExternalLink } from 'lucide-react';
 import { userData } from '../data.js';
-
-const IconButton = ({ icon: Icon, label, href = '#', download = false }) => (
-  <a
-    href={href}
-    target={href !== '#' ? '_blank' : '_self'}
-    rel="noopener noreferrer"
-    download={download ? "resume.pdf" : undefined}
-    className="flex items-center space-x-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] border-2 border-indigo-500 min-w-[150px] justify-center"
-  >
-    <Icon className="w-5 h-5" />
-    <span>{label}</span>
-  </a>
-);
+import { useTypewriter } from '../hooks.js';
 
 export default function Hero() {
+  const role = useTypewriter(userData.roles, 70, 2000);
+
   return (
-    <section id="hero">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center relative py-20">
-        <div className="text-white z-10">
-          <p className="text-xl text-indigo-400 mb-4     font-mono">Hello, This is</p>
-          <h1 className="text-5xl sm:text-7xl font-extrabold leading-tight mb-6">
-            <span className="text-indigo-400">{userData.name}</span>, I'm a
-            <br />
-            <span className="text-green-400">Software Engineer.</span>
-          </h1>
-          <div className="flex space-x-4 mb-8">
-            <IconButton icon={Mail} label="CONTACT ME" href={`mailto:${userData.email}`} />
-            <IconButton icon={Download} label="GET RESUME" href="#" />
-          </div>
-          <div className="flex space-x-6">
-            <a href={`https://${userData.github}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition duration-300">
-              <Github className="w-8 h-8" />
-            </a>
-            <a href={`https://${userData.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition duration-300">
-              <Linkedin className="w-8 h-8" />
-            </a>
-          </div>
+    <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      {/* ambient orbs */}
+      <div className="orb orb-1 top-[-100px] left-[-100px]" />
+      <div className="orb orb-2 top-[5%] right-[-80px]" />
+      <div className="orb orb-3 bottom-[-60px] left-[40%]" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pt-28 pb-16">
+        {/* eyebrow */}
+        <div className="flex items-center gap-2.5 mb-6">
+          <span className="inline-block w-2 h-2 rounded-full bg-emerald animate-pulse" />
+          <span className="font-mono text-xs text-muted tracking-widest uppercase">Open to opportunities</span>
         </div>
 
-        <div className="hidden md:block relative">
-          <div className="absolute inset-0 bg-indigo-900/30 rounded-3xl backdrop-blur-sm shadow-[0_0_50px_rgba(79,70,229,0.5)] transform -rotate-2"></div>
-          <div className="relative p-6 bg-gray-900 border border-indigo-700/50 rounded-3xl shadow-2xl">
-            <div className="flex space-x-2 mb-4">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+        {/* name */}
+        <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-[1.02] mb-4 tracking-tight">
+          <span className="text-ink">Bhargava</span>
+          <br />
+          <span className="text-ink">Phani </span>
+          <span style={{ WebkitTextStroke: '1.5px rgba(96,165,250,0.6)', color: 'transparent' }}>Sriram</span>
+        </h1>
+
+        {/* typewriter role */}
+        <div className="flex items-center gap-3 mb-10">
+          <span className="font-mono text-blue text-sm">$</span>
+          <span className="font-display text-xl sm:text-2xl font-semibold text-blue">{role}</span>
+          <span className="caret font-mono text-blue text-xl">|</span>
+        </div>
+
+        {/* stats row */}
+        <div className="flex flex-wrap gap-6 mb-12">
+          {userData.stats.map((s) => (
+            <div key={s.label} className="flex flex-col">
+              <span className="font-display text-3xl font-extrabold text-ink">{s.value}</span>
+              <span className="font-mono text-xs text-muted uppercase tracking-wider">{s.label}</span>
             </div>
-            <pre className="text-sm font-mono text-gray-300 overflow-auto whitespace-pre-wrap">
-              <code className="text-pink-400">const</code> <code className="text-yellow-300">coder</code> = <code className="text-white">{'{'}
-              </code>
-              <br />
-              &nbsp;&nbsp;<code className="text-sky-400">name</code>: <code className="text-green-400">'Sriram M'</code>,
-              <br />
-              &nbsp;&nbsp;<code className="text-sky-400">role</code>: <code className="text-green-400">'Full Stack Engineer'</code>,
-              <br />
-              &nbsp;&nbsp;<code className="text-sky-400">skillsCount</code>: <code className="text-amber-300">18</code>,
-              <br />
-              &nbsp;&nbsp;<code className="text-sky-400">problemSolver</code>: <code className="text-amber-300">true</code>,
-              <br />
-              &nbsp;&nbsp;<code className="text-sky-400">isHireable</code>: <code className="text-pink-400">function</code>() <code className="text-white">{'{'}
-              </code>
-              <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;<code className="text-pink-400">return</code> (
-              <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code className="text-white">this</code>.<code className="text-sky-400">problemSolver</code> &&
-              <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code className="text-white">this</code>.<code className="text-sky-400">skillsCount</code> {'>'} <code className="text-amber-300">5</code>
-              <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;);
-              <br />
-              &nbsp;&nbsp;<code className="text-white">{'}'}</code>
-              <br />
-              <code className="text-white">{'}'}</code>;
-            </pre>
+          ))}
+        </div>
+
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-4">
+          <a
+            href={`mailto:${userData.email}`}
+            className="flex items-center gap-2.5 px-6 py-3 bg-blue text-bg font-semibold text-sm rounded-xl hover:bg-blue/80 transition-colors"
+          >
+            <Mail className="w-4 h-4" /> Get in touch
+          </a>
+          <a
+            href="/resume.pdf"
+            download="Sriram_Mudrageda_Resume.pdf"
+            className="flex items-center gap-2.5 px-6 py-3 bg-panel border border-rim text-ink font-semibold text-sm rounded-xl hover:border-blue/40 transition-colors"
+          >
+            <ExternalLink className="w-4 h-4 text-blue" /> Download Resume
+          </a>
+          <div className="flex items-center gap-4 ml-2">
+            <a href={`https://${userData.github}`} target="_blank" rel="noopener noreferrer" className="text-faint hover:text-blue transition-colors">
+              <Github className="w-6 h-6" />
+            </a>
+            <a href={`https://${userData.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-faint hover:text-blue transition-colors">
+              <Linkedin className="w-6 h-6" />
+            </a>
           </div>
         </div>
       </div>
+
+      {/* bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: 'linear-gradient(transparent, var(--color-bg))' }} />
     </section>
   );
 }
